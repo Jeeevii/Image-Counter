@@ -44,8 +44,8 @@ canvas.addEventListener('click', function(event) {
     tag.className = 'tag';
     tag.innerHTML = tagCount++;
     // calculate tag position relative to canvas
-    const left = event.clientX - canvas.getBoundingClientRect().left - 1; // Adjust for the canvas border
-    const top = event.clientY - canvas.getBoundingClientRect().top - 1; // Adjust for the canvas border
+    const left = event.clientX - canvas.getBoundingClientRect().left - 1; // adjust for the canvas border
+    const top = event.clientY - canvas.getBoundingClientRect().top - 1; // adjust for the canvas border
     // set tag position
     tag.style.left = `${left}px`;
     tag.style.top = `${top}px`;
