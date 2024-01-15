@@ -1,15 +1,15 @@
 // initialize tag count
 let tagCount = 1;
-
 // get canvas and its 2D context
 const canvas = document.getElementById('imageCanvas');
 const ctx = canvas.getContext('2d');
-
 // create input element for image selection
 const imageInput = document.createElement('input');
 imageInput.type = 'file';
 imageInput.accept = 'image/*';
 imageInput.style.display = 'none';
+// list to store all tags
+const tagsList = [];
 
 // event listener for "Import Image" button
 document.getElementById('importButton').addEventListener('click', function() {
@@ -20,7 +20,6 @@ document.getElementById('importButton').addEventListener('click', function() {
 imageInput.addEventListener('change', function(event) {
     const fileInput = event.target;
     const file = fileInput.files[0];
-
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -51,14 +50,34 @@ canvas.addEventListener('click', function(event) {
     tag.style.top = `${top}px`;
     // append tag to the canvas container
     document.getElementById('canvasContainer').appendChild(tag);
-    // add click event listener to remove the tag
-    tag.addEventListener('click', function() {
-        removeTag(tag);
-    });
+    // add tag to the list
+    tagsList.push(tag);
 });
 
-// function to remove a tag
-function removeTag(tag) {
-    // remove the tag from the canvas container
-    document.getElementById('canvasContainer').removeChild(tag);
-}
+// event listener for "Undo" button
+document.getElementById('undoButton').addEventListener('click', function() {
+    // Decrease the tag count by 1
+    if (tagCount > 1) {
+        tagCount--;
+    }
+    // remove the last added tag from the list
+    const lastTag = tagsList.pop();
+    // remove the last added tag from the canvas
+    if (lastTag) {
+        lastTag.parentNode.removeChild(lastTag);
+    }
+});
+
+// event listener for "Clear All" button
+document.getElementById('clearAllButton').addEventListener('click', function() {
+    // reset the tag count to 1
+    tagCount = 1;
+
+    // remove all tags from the list
+    tagsList.forEach(tag => {
+        tag.parentNode.removeChild(tag);
+    });
+
+    // clear the list
+    tagsList.length = 0;
+});
