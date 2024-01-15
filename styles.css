@@ -23,7 +23,7 @@ canvas {
 
 .tag {
     position: absolute;
-    background-color: #3498db;
+    background-color: rgba(52, 152, 219, 0.2); /* adjust the alpha value (0.2 in this case) depending on transpercy level */
     color: #fff;
     padding: 5px;
     border-radius: 5px;
@@ -31,14 +31,18 @@ canvas {
     cursor: pointer;
 }
 
-#importButton {
+#buttonContainer {
+    display: flex;
+    gap: 10px;
+}
+
+button {
     background-color: #3498db;
     color: #fff;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
 }
 
 #title {
