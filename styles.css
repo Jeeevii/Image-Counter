@@ -23,7 +23,7 @@ canvas {
 
 .tag {
     position: absolute;
-    background-color: rgba(52, 152, 219, 0.2); /* adjust the alpha value (0.2 in this case) depending on transpercy level */
+    background-color: rgba(52, 152, 219, 0.1); /* adjust the alpha value (0.2 in this case) depending on transpercy level */
     color: #fff;
     padding: 5px;
     border-radius: 5px;
