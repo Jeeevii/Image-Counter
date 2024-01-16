@@ -10,12 +10,10 @@ imageInput.accept = 'image/*';
 imageInput.style.display = 'none';
 // list to store all tags
 const tagsList = [];
-
 // event listener for "Import Image" button
 document.getElementById('importButton').addEventListener('click', function() {
     imageInput.click();
 });
-
 // event listener for image selection
 imageInput.addEventListener('change', function(event) {
     const fileInput = event.target;
@@ -35,7 +33,6 @@ imageInput.addEventListener('change', function(event) {
         reader.readAsDataURL(file);
     }
 });
-
 // event listener for canvas click (tag creation)
 canvas.addEventListener('click', function(event) {
     // create a tag element
@@ -53,7 +50,6 @@ canvas.addEventListener('click', function(event) {
     // add tag to the list
     tagsList.push(tag);
 });
-
 // event listener for "Undo" button
 document.getElementById('undoButton').addEventListener('click', function() {
     // Decrease the tag count by 1
@@ -67,7 +63,6 @@ document.getElementById('undoButton').addEventListener('click', function() {
         lastTag.parentNode.removeChild(lastTag);
     }
 });
-
 // event listener for "Clear All" button
 document.getElementById('clearAllButton').addEventListener('click', function() {
     // reset the tag count to 1
@@ -80,4 +75,28 @@ document.getElementById('clearAllButton').addEventListener('click', function() {
 
     // clear the list
     tagsList.length = 0;
+});
+// event listener for "Export" button
+document.getElementById('exportButton').addEventListener('click', function() {
+    // create a temporary canvas to draw the original image and tags
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    // draw the original image on the temporary canvas
+    tempCtx.drawImage(canvas, 0, 0);
+    // draw the tags on the temporary canvas
+    const tags = document.querySelectorAll('.tag');
+    tags.forEach(tag => {
+        tempCtx.fillText(tag.innerHTML, parseInt(tag.style.left, 10), parseInt(tag.style.top, 10));
+    });
+    // get the data URL of the temporary canvas
+    const dataUrl = tempCanvas.toDataURL('image/png');
+    // create a link and trigger a click event to download the image
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = 'exported_image.png'; // you can change the filename
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 });
