@@ -1,3 +1,5 @@
+Website: https://jeeevii.github.io/Image-Counter/
+
 # Eric's Image Counter
 
 A web application to help Eric count and track objects in an image by placing numbered tags.
